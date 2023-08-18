@@ -17,7 +17,7 @@
     ```
 1. 起動した後はエラーログがないか確認しておきましょう
     ```sh
-    $ docker compose logs-f
+    $ docker compose logs -f
     ```
 
 ## Trouble Shooting
