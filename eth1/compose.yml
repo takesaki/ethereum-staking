@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  geth:
+    # https://github.com/ethereum/go-ethereum/blob/master/Dockerfile
+    image: ethereum/client-go:stable
+    container_name: ethereum-node
+    command: >
+      --goerli --http --http.addr 0.0.0.0 --http.vhosts \* --metrics --metrics.addr 0.0.0.0 --authrpc.addr 0.0.0.0 --authrpc.port 8551 --authrpc.vhosts \* --authrpc.jwtsecret /run/secrets/jwtsecret
+    ports:
+      - "6060:6060" # for metrics
+      - "8551:8551" # rpc with auth 
+      - "30303:30303"
+      - "30303:30303/udp"
+    env_file:
+      - '.env'
+    volumes:
+      # Data persistency
+      - ./storage:/root
+    restart: unless-stopped
+    secrets:
+      - jwtsecret
+secrets:
+  jwtsecret:
+    file: ./jwtsecret
+  
