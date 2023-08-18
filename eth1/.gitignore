@@ -14,5 +14,4 @@ history
 *.log
 
 ### Custom
-storage/
 jwtsecret
