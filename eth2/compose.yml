@@ -1,0 +1,27 @@
+version: '3.7'
+services:  
+  beacon:
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+    container_name: beacon-node
+    command: >
+      --goerli 
+      --config-file=/config/beacon.yaml
+    ports:
+      - "4000:4000" # validatorから見えればいいのでグローバル公開する必要はない
+      - "13000:13000"
+      - "12000:12000/udp"
+    env_file:
+      - '.env'
+
+    restart: always
+    secrets:
+      - jwtsecret
+    
+    volumes:
+      # Data persistency
+      - ./data:/data
+      - ./config:/config:ro
+
+secrets:
+  jwtsecret:
+    file: ./jwtsecret

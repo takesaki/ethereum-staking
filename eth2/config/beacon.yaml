@@ -1,0 +1,47 @@
+############################################################
+##
+## Read up on parameters on
+## https://docs.prylabs.network/docs/prysm-usage/parameters/
+##
+############################################################
+
+accept-terms-of-use: true
+
+datadir: /data
+
+#######################
+# Connectivity settings 
+p2p-host-ip: ""
+p2p-host-dns: ""
+
+rpc-host: 0.0.0.0
+monitoring-host: 0.0.0.0
+
+# what is this?
+#grpc-gateway-host: 0.0.0.0
+#grpc-gateway-port: 3500
+#eth-api-port: 3501
+
+# disable scan of local network
+p2p-denylist: ["10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","100.64.0.0/10","169.254.0.0/16"]
+
+# changing this also needs to be changed in docker-compose.yaml!
+p2p-tcp-port: 13000
+
+p2p-max-peers: 50
+
+##############################
+# Connection to geth container
+execution-endpoint: http://127.0.0.1:8551
+
+jwt-secret: /run/secrets/jwtsecret
+
+block-batch-limit: 512
+
+pyrmont: yes
+
+checkpoint-sync-url: https://goerli.checkpoint-sync.ethpandaops.io
+
+#############################
+# validatorからの情報で上書きされるが、validatorがバリデータ報酬の振込先を指定してこない場合に振り込まれるアドレス
+suggested-fee-recipient: 0x........
