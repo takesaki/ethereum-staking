@@ -1,7 +1,7 @@
 version: '3.7'
 services:  
   beacon:
-    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:v4.0.7
     container_name: beacon-node
     command: >
       --goerli 
