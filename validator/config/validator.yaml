@@ -6,6 +6,7 @@
 ############################################################
 
 accept-terms-of-use: true
+enable-builder: true  # if use MEV-boost
 
 ##############
 # Connectivity

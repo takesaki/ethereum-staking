@@ -40,8 +40,6 @@ http-mev-relay: http://127.0.0.1:18550
 
 block-batch-limit: 512
 
-pyrmont: yes
-
 checkpoint-sync-url: https://goerli.checkpoint-sync.ethpandaops.io
 
 #############################
