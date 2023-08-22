@@ -36,6 +36,8 @@ execution-endpoint: http://127.0.0.1:8551
 
 jwt-secret: /run/secrets/jwtsecret
 
+http-mev-relay: http://192.168.0.201:18550
+
 block-batch-limit: 512
 
 pyrmont: yes
