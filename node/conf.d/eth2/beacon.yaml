@@ -16,11 +16,11 @@ p2p-host-dns: ""
 
 rpc-host: 0.0.0.0
 monitoring-host: 0.0.0.0
+monitoring-port: 8080
 
-# what is this?
-#grpc-gateway-host: 0.0.0.0
-#grpc-gateway-port: 3500
-#eth-api-port: 3501
+# api
+grpc-gateway-host: 0.0.0.0
+grpc-gateway-port: 3500
 
 # disable scan of local network
 p2p-denylist: ["10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","100.64.0.0/10","169.254.0.0/16"]
@@ -32,16 +32,15 @@ p2p-max-peers: 50
 
 ##############################
 # Connection to geth container
-execution-endpoint: http://127.0.0.1:8551
+execution-endpoint: http://geth:8551
 
 jwt-secret: /run/secrets/jwtsecret
 
-http-mev-relay: http://127.0.0.1:18550
+http-mev-relay: http://mev:18550
 
 block-batch-limit: 512
 
 checkpoint-sync-url: https://goerli.checkpoint-sync.ethpandaops.io
 
 #############################
-# validatorからの情報で上書きされるが、validatorがバリデータ報酬の振込先を指定してこない場合に振り込まれるアドレス
-suggested-fee-recipient: 0x........
+suggested-fee-recipient: 0x26f13a2aDdbd41D750C49cAc0984B0ea379C234a

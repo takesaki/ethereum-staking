@@ -26,7 +26,7 @@ $ docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys ethereum/stak
 ```
 
 ## import keys
-1. validator_keysディレクトリ内のdeposit.jsonとkeysrore.jsonから鍵をインポートします、これによりwalletディレクトリ内に情報が書き込まれます
+1. validator_keysディレクトリ内のkeysrore.jsonから鍵をインポートします、これによりwalletディレクトリ内に情報が書き込まれます
     ```
     $ docker run -it -v $(pwd)/validator_keys:/keys \
         -v $(pwd)/wallet:/wallet \
