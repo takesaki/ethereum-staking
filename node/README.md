@@ -19,16 +19,19 @@
 
 1. 以下のコマンドで起動します
     ```sh
-    $ docker compose up -d
+    $ docker compose --env-file mainnet.env up -d
     ```
 1. 起動した後はエラーログがないか確認しておきましょう
     ```sh
     $ docker compose logs -f
     ```
 
-### mainnetで動かす場合は
-- compose.ymlの編集（--goerliを--mainnetに）
+### testnet(goerli)で動かす場合は
 - `conf.d/eth2/beacon.yaml`の`checkpoint-sync-url`を変更
+- 起動オプションを変更（mainnet.envをgoerli.envに）
+    ```sh
+    docker compose --env-file goerli.env up -d
+    ```
 
 ## TIPS　　
 - 4000番ポートにvalidatorはアクセスしてきますFWなどは開けておきましょう

@@ -40,7 +40,8 @@ http-mev-relay: http://mev:18550
 
 block-batch-limit: 512
 
-checkpoint-sync-url: https://goerli.checkpoint-sync.ethpandaops.io
+#checkpoint-sync-url: https://goerli.beaconstate.ethstaker.cc/
+checkpoint-sync-url: https://beaconstate.ethstaker.cc
 
 #############################
 suggested-fee-recipient: 0x26f13a2aDdbd41D750C49cAc0984B0ea379C234a
