@@ -4,14 +4,14 @@
 1. git cloneし、ディレクトリに移動します
     ```sh
     git clone https://github.com/takesaki/ethereum-staking.git
-    cd ethereum-staking
+    cd ethereum-staking/node
     ```
 
 1. EL/CL間通信時の認証情報（jwt secret）ファイル`jwtsecret`を作成します  
 
     [参考](https://docs.prylabs.network/docs/execution-node/authentication)
     ```
-    $ openssl rand -hex 32 | tr -d "\n" > "jwtsecret"
+    openssl rand -hex 32 | tr -d "\n" > "jwtsecret"
     ```
     作成した`jwtsecret`はBeacon Nodeからも参照されます
 
@@ -19,11 +19,11 @@
 
 1. 以下のコマンドで起動します
     ```sh
-    $ docker compose --env-file mainnet.env up -d
+    docker compose --env-file mainnet.env up -d
     ```
 1. 起動した後はエラーログがないか確認しておきましょう
     ```sh
-    $ docker compose logs -f
+    docker compose logs -f
     ```
 
 ### testnet(goerli)で動かす場合は
@@ -37,6 +37,8 @@
 - 4000番ポートにvalidatorはアクセスしてきますFWなどは開けておきましょう
 
 ### gethのAPIへの接続方法
+
+各コンテナに`exec`するのは、監査的に良くないのでアクセス用のコンテナを建てる
 ```sh
 docker run --rm -it \
   --network node_default \
@@ -52,7 +54,7 @@ docker run --rm -it \
 ### pryzmのAPIの実行方法
 ```sh
 # 動作確認用コンテナを立てる
-docker run -it \
+docker run --rm -it \
   --network node_default \
   alpine \
   /bin/sh
