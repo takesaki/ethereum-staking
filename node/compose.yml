@@ -5,20 +5,20 @@ services:
   ######################
   geth:
     # https://github.com/ethereum/go-ethereum/blob/master/Dockerfile
-    image: ethereum/client-go:v1.12.2
+    image: ethereum/client-go:${TAG_ETH1:-v1.12.2}
     container_name: ethereum-node
     command: >
-      --goerli --http --http.addr 0.0.0.0 --http.vhosts \* --metrics --metrics.addr 0.0.0.0 --authrpc.addr 0.0.0.0 --authrpc.port 8551 --authrpc.vhosts \* --authrpc.jwtsecret /run/secrets/jwtsecret
+      --${NETWORK:-mainnet} --http --http.addr 0.0.0.0 --http.vhosts \* --metrics --metrics.addr 0.0.0.0 --authrpc.addr 0.0.0.0 --authrpc.port 8551 --authrpc.vhosts \* --authrpc.jwtsecret /run/secrets/jwtsecret
     ports:
       - "6060:6060" # for metrics
       - "8551:8551" # rpc with auth 
       - "30303:30303"
       - "30303:30303/udp"
     env_file:
-      - '.env'
+      - '.node.env'
     volumes:
       # Data persistency
-      - ./storage.d/eth1:/root
+      - eth1-storage:/root
     restart: always
     secrets:
       - jwtsecret
@@ -34,10 +34,10 @@ services:
   ### eth2 #############
   ######################
   beacon:
-    image: gcr.io/prysmaticlabs/prysm/beacon-chain:v4.0.8
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:${TAG_ETH2:-v4.0.8}
     container_name: beacon-node
     command: >
-      --goerli 
+      --${NETWORK:-mainnet} 
       --config-file=/config/beacon.yaml
     ports:
       - "4000:4000" # for validators
@@ -45,14 +45,14 @@ services:
       - "12000:12000/udp"
       - "13000:13000"
     env_file:
-      - '.env'
+      - '.node.env'
     restart: always
     secrets:
       - jwtsecret
     
     volumes:
       # Data persistency
-      - ./storage.d/eth2:/data
+      - eth2-storage:/data
       - ./conf.d/eth2:/config:ro
     #logging:
     #  driver: awslogs
@@ -66,17 +66,17 @@ services:
   ### MEV-boost ########
   ######################
   mev:
-    image: flashbots/mev-boost:1.6
+    image: flashbots/mev-boost:${TAG_MEV_BOOST:-1.6}
     container_name: mev-boost
     command: >
-      -goerli
+      -${NETWORK:-mainnet}
       -addr
       0.0.0.0:18550
       -relay-check
       -relays
-      https://0xafa4c6985aa049fb79dd37010438cfebeb0f2bd42b115b89dd678dab0670c1de38da0c4e9138c9290a398ecd9a0b3110@builder-relay-goerli.flashbots.net
+      ${URL_MEV_RELAY:-https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net}
     env_file:
-      - '.env'
+      - '.node.env'
     restart: always
     
     #logging:
@@ -85,6 +85,10 @@ services:
     #    awslogs-region: ap-northeast-3
     #    awslogs-group: ethereum-node
     #    tag: "{{.Name}}/{{.ID}}"
+
+volumes:
+  eth1-storage:
+  eth2-storage:
 
 secrets:
   jwtsecret:
