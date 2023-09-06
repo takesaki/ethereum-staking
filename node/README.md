@@ -46,7 +46,7 @@ docker run --rm -it \
 結果がfalseならSyncできてる
 - peer接続数  `net.peerCount`
 
-### pryzmのAPIの実行方法
+### prysmのAPIの実行方法
 ```sh
 # 動作確認用コンテナを立てる
 docker run -it \

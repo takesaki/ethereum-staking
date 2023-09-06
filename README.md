@@ -6,7 +6,7 @@
 [構築手順](./node)
 
 ## validator
-[構築手順](./validator)
+[構築手順](https://github.com/takesaki/ethereum-validator/blob/main/README.md)
 
 
 
