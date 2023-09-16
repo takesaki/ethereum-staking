@@ -56,8 +56,7 @@ docker run --rm -it \
 # 動作確認用コンテナを立てる
 docker run --rm -it \
   --network node_default \
-  takesaki/toolbox \
-  /bin/sh
+  takesaki/toolbox
 # ELとの接続状態を確認
 curl http://beacon:3500/eth/v1/node/syncing | jq
 # BeaconCahinの状態を確認
