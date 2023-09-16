@@ -56,10 +56,8 @@ docker run --rm -it \
 # 動作確認用コンテナを立てる
 docker run --rm -it \
   --network node_default \
-  alpine \
+  takesaki/toolbox \
   /bin/sh
-# 起動したコンテナに必要なコマンドの追加
-apk add curl jq
 # ELとの接続状態を確認
 curl http://beacon:3500/eth/v1/node/syncing | jq
 # BeaconCahinの状態を確認
