@@ -36,7 +36,7 @@
 ## TIPS　　
 - 4000番ポートにvalidatorはアクセスしてきますFWなどは開けておきましょう
 
-### gethのAPIへの接続方法
+### gethのAPIの実行
 
 各コンテナに`exec`するのは、監査的に良くないのでアクセス用のコンテナを建てる
 ```sh
@@ -51,18 +51,22 @@ docker run --rm -it \
 結果がfalseならSyncできてる
 - peer接続数  `net.peerCount`
 
-### prysmのAPIの実行方法
+### prysmのAPIの実行
+#### 動作確認用コンテナを立てる
 ```sh
-# 動作確認用コンテナを立てる
 docker run --rm -it \
   --network node_default \
   takesaki/toolbox
-# ELとの接続状態を確認
-curl http://beacon:3500/eth/v1/node/syncing | jq
-# BeaconCahinの状態を確認
-curl http://beacon:8080/healthz
 ```
+- ELとの接続状態を確認
+    ```sh
+    curl -s http://beacon:3500/eth/v1/node/syncing | jq
+    ```
+- BeaconCahinの状態を確認
+    ```sh
+    curl -s http://beacon:8080/healthz
+    ```
 
 ## Trouble Shooting
-- 同期が終わらない  
+- Consensus Client同期が終わらない  
   Execution Clientが先に同期完了している必要があるため、Execution Client起動直後はしばらく時間がかかります
